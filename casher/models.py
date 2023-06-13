@@ -10,29 +10,18 @@ class Category(models.Model):
     name = models.CharField(max_length=25, db_index=True, unique=True)
     type = models.CharField(max_length=3, choices=TypeChoice.choices)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-
-
-class Income(models.Model):
-    class CurrencyChoice(models.TextChoices):
-        USD = "USD"
-        UZS = "UZS"
-
-    person = models.CharField(max_length=60)
-    description = models.CharField(max_length=255)
-    price = models.DecimalField(max_digits=11, decimal_places=2)
-    currency = models.CharField(max_length=3, choices=CurrencyChoice.choices)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
 
-class Outcome(models.Model):
-    class CurrencyChoice(models.TextChoices):
-        USD = "USD"
-        UZS = "UZS"
+class Action(models.Model):
 
-    person = models.CharField(max_length=60)
-    description = models.CharField(max_length=255)
-    price = models.DecimalField(max_digits=11, decimal_places=2)
-    currency = models.CharField(max_length=3, choices=CurrencyChoice.choices)
+    issuer = models.CharField(max_length=60)
+    amount_dollar = models.DecimalField(max_digits=11, decimal_places=2)
+    amount_sum = models.DecimalField(max_digits=11, decimal_places=2)
+    description = models.CharField(max_length=255, null=True, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.RESTRICT, db_index=True)
+    dolar_price = models.DecimalField(max_digits=11, decimal_places=2)
+    issued = models.DateTimeField(db_index=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
