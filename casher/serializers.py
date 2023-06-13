@@ -16,4 +16,4 @@ class ActionSerilizer(serializers.ModelSerializer):
 
     class Meta:
         model = Action
-        fields = ['id', 'issuer', "amount_dollar", "amount_sum", "description", "dolar_price", "issued", "created", "updated"]
+        fields = ['id', 'issuer', "amount_dollar", "amount_sum", "description", "dolar_price", "issued", "name", "type", "created", "updated"]
