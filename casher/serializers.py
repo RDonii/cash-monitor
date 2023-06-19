@@ -1,6 +1,5 @@
 from rest_framework import serializers
 
-from core.models import User
 from casher.models import Category, Action
 
 
@@ -21,6 +20,22 @@ class ActionSerilizer(serializers.ModelSerializer):
         extra_kwargs = {
             'category': {"write_only": True}
         }
+
+    def get_type(self, action: Action):
+        return action.category.type
+
+    def get_name(self, action: Action):
+        return action.category.name
+
+
+class ActionSumSerializer(serializers.ModelSerializer):
+    type = serializers.SerializerMethodField()
+    name = serializers.SerializerMethodField()
+    amount = serializers.DecimalField(max_digits=11, decimal_places=2)
+
+    class Meta:
+        model = Action
+        fields = ['id', 'category', "name", "type", "amount"]
 
     def get_type(self, action: Action):
         return action.category.type
