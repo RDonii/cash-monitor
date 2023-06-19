@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "djoser",
     "debug_toolbar",
+    'drf_spectacular',
     "core",
     "casher",
 ]
@@ -159,6 +160,16 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 50,
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Cash Monitor',
+    'DESCRIPTION': "RESTful service that allows easily monitor small cash actions.",
+    'VERSION': '0.0.1',
+    'SERVE_INCLUDE_SCHEMA': True,
 }
 
 SIMPLE_JWT = {
