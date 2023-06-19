@@ -1,13 +1,14 @@
 from django.db import models
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import GenericAPIView
-from rest_framework.filters import SearchFilter
+from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.response import Response
 from rest_framework.request import Request
 from django_filters.rest_framework import DjangoFilterBackend
 
 from casher.serializers import CategorySerializer, ActionSerilizer
 from casher.models import Category, Action
+from casher.filters import ActionRangeFilter
 
 
 class CategoryViewSet(ModelViewSet):
@@ -28,9 +29,10 @@ class CategoryViewSet(ModelViewSet):
 class ActionViewSet(ModelViewSet):
     queryset = Action.objects.select_related('category').all()
     serializer_class = ActionSerilizer
-    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ['category', 'category__type']
-    search_fields = ['category__name', 'issuer']
+    filterset_class = ActionRangeFilter
+    ordering_fields = ['issued']
 
     def get_queryset(self):
         self.queryset = self.queryset.filter(category__user=self.request.user)
