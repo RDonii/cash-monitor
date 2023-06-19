@@ -51,15 +51,19 @@ INSTALLED_APPS = [
     "rest_framework",
     "djoser",
     "debug_toolbar",
-    'drf_spectacular',
+    "drf_spectacular",
+    "corsheaders",
     "core",
     "casher",
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 MIDDLEWARE = [
     "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
