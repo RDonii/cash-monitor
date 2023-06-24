@@ -37,6 +37,7 @@ class ActionViewSet(ModelViewSet):
     filterset_fields = ['category', 'category__type']
     filterset_class = ActionRangeFilter
     ordering_fields = ['issued']
+    search_fields = ['issuer']
 
     def get_serializer_class(self):
         if self.action == 'excel':
