@@ -31,7 +31,10 @@ SECRET_KEY = env.str('SECRET_KEY')
 DEBUG = env.bool('DEBUG', False)
 
 ALLOWED_HOSTS = []
-ALLOWED_HOSTS.append(env.str('HOST', ''))
+ALLOWED_HOSTS += env.list('HOSTS', [])
+
+CSRF_TRUSTED_ORIGINS = []
+CSRF_TRUSTED_ORIGINS += env.list('TRUSTED_ORIGINS', [])
 
 if DEBUG:
     import socket  # only if you haven't already imported this
